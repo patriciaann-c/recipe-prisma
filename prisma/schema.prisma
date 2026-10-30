@@ -5,3 +5,16 @@ generator client {
 datasource db {
     provider = "mysql"
 }
+
+enum Recipe_Status {
+    LOW
+    MEDIUM
+    HARD
+}
+
+model Recipe {
+    id          Int           @id @default(autoincrement())
+    name        String
+    description String?
+    status      Recipe_Status @default(MEDIUM)
+}
