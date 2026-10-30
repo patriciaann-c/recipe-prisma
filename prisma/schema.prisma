@@ -13,17 +13,29 @@ enum Recipe_Status {
 }
 
 model Recipe {
-    id          Int           @id @default(autoincrement())
+    id          Int                 @id @default(autoincrement())
     name        String
     description String?
-    status      Recipe_Status @default(MEDIUM)
+    status      Recipe_Status       @default(MEDIUM)
+    ingredients Ingredient_Recipe[]
 }
 
 model Ingredient {
-    id                Int     @id @default(autoincrement())
+    id                Int                 @id @default(autoincrement())
     name              String
     quantity          Int
-    contains_allergen Boolean @default(false)
+    contains_allergen Boolean             @default(false)
+    ingredients       Ingredient_Recipe[]
+}
+
+model Ingredient_Recipe {
+    recipeId Int
+    recipe   Recipe @relation(fields: [recipeId], references: [id])
+
+    ingredientId Int
+    ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+
+    @@unique([recipeId, ingredientId])
 }
 
 model Chef {
