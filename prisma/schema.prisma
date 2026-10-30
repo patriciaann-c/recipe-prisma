@@ -18,6 +18,8 @@ model Recipe {
     description String?
     status      Recipe_Status       @default(MEDIUM)
     ingredients Ingredient_Recipe[]
+    chefId      Int
+    chef        Chef                @relation(fields: [chefId], references: [id])
 }
 
 model Ingredient {
@@ -39,6 +41,7 @@ model Ingredient_Recipe {
 }
 
 model Chef {
-    id   Int    @id @default(autoincrement())
-    name String
+    id      Int      @id @default(autoincrement())
+    name    String
+    recipes Recipe[]
 }
