@@ -11,6 +11,10 @@ const newRecipe = await client.recipe.create({
             }
         }
     }
-})
+});
+
+const recipes = await client.recipe.findMany();
+console.log(recipes);
+
 
 await client.$disconnect();
